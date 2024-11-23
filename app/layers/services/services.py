@@ -16,6 +16,7 @@ def getAllImages(input=None):
     return images
 
 # añadir favoritos (usado desde el template 'home.html')
+
 def saveFavourite(request):
     fav = translator.fromTemplateIntoCard(request)
     fav.user = get_user(request)
