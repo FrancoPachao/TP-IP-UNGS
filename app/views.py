@@ -34,6 +34,7 @@ def search(request):
 @login_required
 def getAllFavouritesByUser(request):
     favourite_list = services.getAllFavourites(request)
+    
     return render(request, 'favourites.html', { 'favourite_list': favourite_list })
 
 @login_required
