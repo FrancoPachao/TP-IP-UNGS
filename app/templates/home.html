@@ -2,28 +2,14 @@
 <main>
     <h1 class="text-center">Buscador Rick & Morty</h1>
 
-    <div class="d-flex justify-content-end">
-        {% if images.paginator.page_range %}
-        <nav aria-label="Page navigation">
-            <ul class="pagination">
-                {% for page_number in images.paginator.page_range %}
-                <li class="page-item {% if images.number == page_number %}active{% endif %}">
-                    <a class="page-link" href="{% url 'home' page_number %}">{{ page_number }}</a>
-                </li>
-                {% endfor %}
-            </ul>
-        </nav>
-        {% else %}
-        <p class="text-center">No hay más páginas para mostrar.</p>
-        {% endif %}
-    </div>
 
-    <div class="d-flex justify-content-center" style="margin-bottom: 1%">
+
+    <div class="d-flex justify-content-center" style="margin-bottom: 3%">
         <!-- Buscador del sitio -->
         <form class="d-flex" action="{% url 'buscar' %}" method="POST">
             {% csrf_token %}
-            <input class="form-control me-2" type="search" name="query" placeholder="Escribí una palabra" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Buscar</button>
+            <input class="form-control me-2 inputbusca" type="search" name="query" placeholder="Busca un personaje" aria-label="Search" autocomplete="off">
+            <button class="btn btn-outline-success buscar" type="submit">Buscar</button>
         </form>
     </div>
 
@@ -32,7 +18,7 @@
         <h2 class="text-center">La búsqueda no arrojó resultados...</h2>
         {% else %} {% for img in images %}
         <div class="col">
-            <div class="card mb-3 ms-5 {% if img.status == 'Alive' %}border-success{% elif img.status == 'Dead' %}border-danger{% else %}border-warning{% endif %}" style="max-width: 540px;">
+            <div class="card mb-3 mx-3 {% if img.status == 'Alive' %}border-success{% elif img.status == 'Dead' %}border-danger{% else %}border-warning{% endif %}" style="max-width: 700px;">
                 <div class="row g-0">
                     <div class="col-md-4">
                         <img src="{{ img.url }}" class="card-img-top" alt="imagen">
@@ -40,37 +26,54 @@
 
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h3 class="card-title">{{ img.name }}</h3>
+                            <div class="card-header">
+                            <h3 class="card-title {% if img.status == 'Alive' %}success{% elif img.status == 'Dead' %}danger{% else %}warning{% endif %}">{{ img.name }}</h3>
+                            {% if request.user.is_authenticated %}
+                            <form method="post" action="{% url 'agregar-favorito' %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="name" value="{{ img.name }}" >
+                            <input type="hidden" name="url" value="{{ img.url }}">
+                            <input type="hidden" name="status" value="{{ img.status }}">
+                            <input type="hidden" name="last_location" value="{{ img.last_location }}">
+                            <input type="hidden" name="first_seen" value="{{ img.first_seen }}"> {% if img in favourite_list %}
+                            <button type="submit" class="btn btn-primary btn-sm float-left fav" style="color:white" disabled>✔️</button> {% else %}
+                            <button type="submit" class="btn btn-primary btn-sm float-left corazon" style="color:white">❤️</button> {% endif %}
+                            {% endif %}
+                            </form>
+                            </div>
                             <p class="card-text">
                                 <strong>
                                             {% if img.status == 'Alive' %} 🟢 {{ img.status }} 
                                             {% elif img.status == 'Dead' %} 🔴 {{ img.status }} 
                                             {% else %} 🟠 {{ img.status }} 
                                             {% endif %}
-                                        </strong>
+                                </strong>
                             </p>
                             <p class="card-text"><small class="text-body-secondary">Última ubicación: {{ img.last_location }}</small></p>
                             <p class="card-text"><small class="text-body-secondary">Episodio inicial: {{ img.first_seen }}</small></p>
                         </div>
-                        {% if request.user.is_authenticated %}
-                        <div class="card-footer text-center">
-                            <form method="post" action="{% url 'agregar-favorito' %}">
-                                {% csrf_token %}
-                                <input type="hidden" name="name" value="{{ img.name }}">
-                                <input type="hidden" name="url" value="{{ img.url }}">
-                                <input type="hidden" name="status" value="{{ img.status }}">
-                                <input type="hidden" name="last_location" value="{{ img.last_location }}">
-                                <input type="hidden" name="first_seen" value="{{ img.first_seen }}"> {% if img in favourite_list %}
-                                <button type="submit" class="btn btn-primary btn-sm float-left" style="color:white" disabled>✔️ Ya está en favoritos</button> {% else %}
-                                <button type="submit" class="btn btn-primary btn-sm float-left" style="color:white">❤️ Añadir a favoritos</button> {% endif %}
-                            </form>
-                        </div>
-                        {% endif %}
+
+
                     </div>
                 </div>
             </div>
         </div>
         {% endfor %} {% endif %}
+    </div>
+    <div class="d-flex justify-content-center">
+        {% if images.paginator.page_range %}
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                {% for page_number in images.paginator.page_range %}
+                <li class="page-item {% if images.number == page_number %}active{% endif %}">
+                    <a class="page-link mx-1 mt-4" href="{% url 'home' page_number %}">{{ page_number }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </nav>
+        {% else %}
+        <p class="text-center">No hay más páginas para mostrar.</p>
+        {% endif %}
     </div>
 </main>
 {% endblock %}

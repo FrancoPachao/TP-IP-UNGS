@@ -1,0 +1,52 @@
+
+h2{
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+.login-form1{
+    padding: 30px;
+    background-color: rgb(39, 43, 51);
+    margin-top: 150px;
+    border-radius: 20px;
+}
+input[type="text"], input[type="password"], .ingresar{
+    width: 300px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 15px;
+    background-color: rgb(75, 75, 75);
+    font-size: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+input[type="text"]::placeholder, input[type="password"]::placeholder{
+    color: #ffffff;
+    font-style: normal;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 0 5px rgba(110, 142, 251, 0.7);
+    transform: scale(1.02);
+}
+
+input[type="text"]:focus::placeholder, input[type="password"]:focus::placeholder {
+    color: transparent;
+}
+.ingresar{
+    background-color: #1d59ff!important;
+    outline: none !important;
+    box-shadow: none !important; 
+}
+.ingresar:hover{
+    transition: all 0.3s ease;
+    transform: scale(1.02);
+    background-color: #0044ff!important;
+}
+.ingresar:active{
+    transition: all 0.1s ease;
+    transform: scale(1);
+    background-color: #0041f3!important;
+
+}
