@@ -4,28 +4,33 @@ from django.shortcuts import redirect, render
 from .layers.services import services
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
-from .layers.utilities import translator
+from django.core.paginator import Paginator
 
 def index_page(request):
     return render(request, 'index.html')
 
 # esta función obtiene 2 listados que corresponden a las imágenes de la API y los favoritos del usuario, y los usa para dibujar el correspondiente template.
 # si el opcional de favoritos no está desarrollado, devuelve un listado vacío.
-def home(request):
+def home(request, page = 1):
     images = services.getAllImages()
     favourite_list = services.getAllFavourites(request)
+    image_paginator = Paginator(images, 6)
+    image_page = image_paginator.get_page(page)
 
-    return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
+    return render(request, 'home.html', { 'images': image_page, 'favourite_list': favourite_list })
 
-def search(request):
+def search(request, page = 1):
     search_msg = request.POST.get('query', '')
 
     # si el texto ingresado no es vacío, trae las imágenes y favoritos desde services.py,
     # y luego renderiza el template (similar a home).
     if (search_msg != ''):
         images = services.getAllImages(search_msg)
-        favourite_list = []
-        return render(request, 'home.html', { 'images': images, 'favourite_list': favourite_list })
+        favourite_list = services.getAllFavourites(request)
+        image_paginator = Paginator(images, 6)   
+        image_page = image_paginator.get_page(page)
+        
+        return render(request, 'home.html', { 'images': image_page, 'favourite_list': favourite_list })
     else:
         return redirect('home')
 
@@ -44,7 +49,7 @@ def saveFavourite(request):
 @login_required
 def deleteFavourite(request):
     services.deleteFavourite(request)
-    return getAllFavouritesByUser(request) 
+    return getAllFavouritesByUser(request)
 
 @login_required
 def exit(request):
