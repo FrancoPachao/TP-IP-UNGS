@@ -1,11 +1,62 @@
-{% extends 'header.html' %} {% block content %} {% if request.user.is_authenticated %}
+{% extends 'header.html' %} {% block content %} 
 <div class="bienvenida">
+    {% if request.user.is_authenticated %}
     <h2 class="text-center">Bienvenido {{ user.username | upper }}!</h2>
     {% else %}
     <h2 class="text-center">Bienvenido!</h2>
     {% endif %}
     <p class="text-center">
-        Mirá las imágenes desde <a href="{% url 'home' %}" class="este_link">este link.</a>
+        Mirá las imágenes desde <a href="{% url 'home' %}" class="este_link" onclick="spinner(event)">este link.</a>
     </p>
-</div>
+</div> 
+
+<div id="spinner" class="spinner" style="display: none;"></div>
+<div id="text-spinner" class="text-spinner" style="display: none;">Cargando imagenes...</div>
+
+<style>
+.spinner {
+    width: 100px;
+    height: 100px;
+    border: 10px solid #f3f3f3; 
+    border-top: 10px solid #00759c; 
+    border-radius: 50%;
+    animation: spin 1s linear infinite; 
+    margin: auto;
+    margin-top: 330px;
+    user-select: none;
+}
+
+.text-spinner {
+    margin-top: 1%;
+    margin-left: 46%;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+</style>
+
+<script>
+    function spinner(event) {
+        event.preventDefault();
+
+        const bienvenida = document.querySelector('.bienvenida');
+        if (bienvenida) {
+            bienvenida.style.display = 'none';
+        }
+
+        document.getElementById('spinner').style.display = 'block';
+        document.getElementById('text-spinner').style.display = 'block';
+
+        setTimeout(() => {
+            window.location.href = event.target.href;
+        }, 800);
+    }
+</script>
 {% endblock %}
