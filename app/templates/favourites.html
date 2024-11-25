@@ -1,8 +1,11 @@
-{% extends 'header.html' %} {% block content %}
+{% extends 'header.html' %} {% block content %} {% load static %}
+<script src="{% static 'main.js' %}"></script>
+
 <style>
     body {
         overflow-y: scroll;
     }
+</style>
 </style>
 <div class="container-xl">
     <div class="table-responsive">
@@ -21,7 +24,8 @@
                         <th>Nombre <i class="fa fa-sort"></i></th>
                         <th>Status</th>
                         <th>Última ubicación <i class="fa fa-sort"></i></th>
-                        <th>Episodio inicial </th>
+                        <th>Episodio inicial</th>
+                        <th>Comentario</th>
                         <th>Acciones </th>
                     </tr>
                 </thead>
@@ -33,6 +37,7 @@
                         <td>{{ favourite.status }}</td>
                         <td>{{ favourite.last_location }}</td>
                         <td>{{ favourite.first_seen }}</td>
+                        <td id="comentarioTd" style="max-width: 300px; word-wrap: break-word;"></td>
                         <td>
                             <form method="post" action="{% url 'borrar-favorito' %}">
                                 {% csrf_token %}

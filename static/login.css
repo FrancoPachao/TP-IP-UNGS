@@ -14,7 +14,6 @@ input[type="text"], input[type="password"], .ingresar{
     padding: 10px 15px;
     border: none;
     border-radius: 15px;
-    background-color: rgb(75, 75, 75);
     font-size: 16px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
@@ -29,10 +28,6 @@ input[type="text"]::placeholder, input[type="password"]::placeholder{
 input[type="text"]:focus, input[type="password"]:focus {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 0 5px rgba(110, 142, 251, 0.7);
     transform: scale(1.02);
-}
-
-input[type="text"]:focus::placeholder, input[type="password"]:focus::placeholder {
-    color: transparent;
 }
 .ingresar{
     background-color: #1d59ff!important;

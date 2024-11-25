@@ -108,11 +108,14 @@ table.table td i {
 }
 
 .pagination {
-    display: flex;
+    position: absolute;
+    left: 884px;
+    bottom: 100px;
     justify-content: center;
     align-items: center;
     color: #666;
-
+    outline: none;
+    user-select: none;
 }
 
 .pagination li a {
@@ -130,20 +133,16 @@ table.table td i {
 
 }
 .page-item.active .page-link{
-    background: #00759c;
+    background: #333538;
 }
 .pagination li a:hover {
     color: #999;
     transform: scale(1.15)!important;
 
 }
-
 .pagination li.active a {
     background: #202020;
 }
-
-
-
 .pagination li.disabled i {
     color: #ccc;
 }
@@ -158,6 +157,7 @@ table.table td i {
     margin-top: 6px;
     font-size: 95%;
 }
+
 
 /* Input y buscar */
 
@@ -301,10 +301,6 @@ strong{
     height: 20px;
 }
 
-
-
-
-
 /* Animación del título (? */
 h1 {
     overflow: hidden; 
@@ -349,7 +345,7 @@ h1 {
 }
 
 .bienvenida{
-    margin: auto;
+    margin: 250px auto;
     padding: 15px;
     background-color: rgba(70, 70, 70, 0.493);
 }

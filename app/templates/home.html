@@ -1,9 +1,7 @@
-{% extends 'header.html' %} {% block content %}
+{% extends 'header.html' %} {% block content %} {% load static %}
 <main>
+<script src="{% static 'main.js' %}"></script>
     <h1 class="text-center">Buscador Rick & Morty</h1>
-
-
-
     <div class="d-flex justify-content-center" style="margin-bottom: 3%">
         <!-- Buscador del sitio -->
         <form class="d-flex" action="{% url 'buscar' %}" method="POST">
@@ -18,7 +16,7 @@
         <h2 class="text-center">La búsqueda no arrojó resultados...</h2>
         {% else %} {% for img in images %}
         <div class="col">
-            <div class="card mb-3 mx-3 {% if img.status == 'Alive' %}border-success{% elif img.status == 'Dead' %}border-danger{% else %}border-warning{% endif %}" style="max-width: 700px;">
+            <div class="card mb-2 mx-3 {% if img.status == 'Alive' %}border-success{% elif img.status == 'Dead' %}border-danger{% else %}border-warning{% endif %}" style="max-width: 700px;">
                 <div class="row g-0">
                     <div class="col-md-4">
                         <img src="{{ img.url }}" class="card-img-top" alt="imagen">
@@ -37,7 +35,7 @@
                             <input type="hidden" name="last_location" value="{{ img.last_location }}">
                             <input type="hidden" name="first_seen" value="{{ img.first_seen }}"> {% if img in favourite_list %}
                             <button type="submit" class="btn btn-primary btn-sm float-left fav" style="color:white" disabled>✔️</button> {% else %}
-                            <button type="submit" class="btn btn-primary btn-sm float-left corazon" style="color:white">❤️</button> {% endif %}
+                            <button type="submit" class="btn btn-primary btn-sm float-left corazon" onclick="comentario('{{ img.name|escapejs }}')" style="color:white">❤️</button> {% endif %}
                             {% endif %}
                             </form>
                             </div>
