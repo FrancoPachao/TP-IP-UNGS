@@ -35,6 +35,17 @@ def search(request, page = 1):
         return redirect('home')
 
 
+from . forms import UsuarioForm
+
+def register(request):
+    if request.method == 'POST':
+        form = UsuarioForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = UsuarioForm()
+    return render(request, 'singup.html', {'form': form})
+
 # Estas funciones se usan cuando el usuario está logueado en la aplicación.
 @login_required
 def getAllFavouritesByUser(request):

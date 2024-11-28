@@ -12,6 +12,8 @@ h2{
 input[type="text"], input[type="password"], .ingresar{
     width: 300px;
     padding: 10px 15px;
+    background-color: #dddddd;
+    color: white;
     border: none;
     border-radius: 15px;
     font-size: 16px;
@@ -21,7 +23,6 @@ input[type="text"], input[type="password"], .ingresar{
 }
 
 input[type="text"]::placeholder, input[type="password"]::placeholder{
-    color: #ffffff;
     font-style: normal;
 }
 

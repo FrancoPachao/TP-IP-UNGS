@@ -14,3 +14,12 @@ class Favourite(models.Model):
 
     class Meta:
         unique_together = (('user', 'url', 'name', 'status', 'last_location', 'first_seen'),)
+
+
+class Usuario(models.Model):
+    nombre_usuario = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
+    contraseña = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nombre_usuario
