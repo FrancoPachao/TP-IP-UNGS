@@ -32,3 +32,9 @@ window.onload = function() {
         }
     });
 };
+
+function redirigirAWikipedia(boton) {
+    const nombre = boton.innerText;
+    const url = `https://rickandmorty.fandom.com/wiki/${encodeURIComponent(nombre)}`;
+    window.location.href = url;
+}

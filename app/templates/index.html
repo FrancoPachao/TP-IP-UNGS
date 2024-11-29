@@ -1,13 +1,12 @@
 {% extends 'header.html' %} {% block content %} 
 <div class="bienvenida">
     {% if request.user.is_authenticated %}
-    <h2 class="text-center">Bienvenido {{ user.username | upper }}!</h2>
+<div class="flex-center"><h2 class="text-center">Bienvenido</h2><h2 id="saludo">{{ user.username }}!</h2></div>
     {% else %}
     <h2 class="text-center">Bienvenido!</h2>
     {% endif %}
-    <p class="text-center">
-        Mirá las imágenes desde <a href="{% url 'home' %}" class="este_link" onclick="spinner(event)">este link.</a>
-    </p>
+    <a href="{% url 'home' %}" class="este_link" onclick="spinner(event)">Mirá las imágenes desde este link</a>
+    
 </div> 
 
 <div id="spinner" class="spinner" style="display: none;"></div>
@@ -54,8 +53,12 @@ function spinner(event) {
 
     setTimeout(() => {
         window.location.href = event.target.href;
-    }, 800);
+    }, 800);    
+    setTimeout(() => {
+        location.reload();
+    }, 2000);  
 }
+  
 
 </script>
 {% endblock %}

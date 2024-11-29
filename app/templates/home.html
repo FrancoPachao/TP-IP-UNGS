@@ -1,13 +1,13 @@
 {% extends 'header.html' %} {% block content %} {% load static %}
 <main>
-<script src="{% static 'main.js' %}"></script>
+    <script src="{% static 'main.js' %}"></script>
     <h1 class="text-center">Buscador Rick & Morty</h1>
     <div class="d-flex justify-content-center" style="margin-bottom: 3%">
         <!-- Buscador del sitio -->
         <form class="d-flex" action="{% url 'buscar' %}" method="POST">
             {% csrf_token %}
             <input class="form-control me-2 inputbusca" type="search" name="query" placeholder="Busca un personaje" aria-label="Search" autocomplete="off">
-            <button class="btn btn-outline-success buscar" type="submit">Buscar</button>
+            <button class="btn buscar" type="submit"><img class="lupa" src="https://cdn-icons-png.flaticon.com/512/25/25313.png" alt=""></button>
         </form>
     </div>
 
@@ -25,7 +25,8 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <div class="card-header">
-                            <h3 class="card-title {% if img.status == 'Alive' %}success{% elif img.status == 'Dead' %}danger{% else %}warning{% endif %}">{{ img.name }}</h3>
+                                <h3 onclick="redirigirAWikipedia(this)" class="card-title {% if img.status == 'Alive' %}success{% elif img.status == 'Dead' %}danger{% else %}warning{% endif %}">{{ img.name }}</h3>
+          
                             {% if request.user.is_authenticated %}
                             <form method="post" action="{% url 'agregar-favorito' %}">
                             {% csrf_token %}

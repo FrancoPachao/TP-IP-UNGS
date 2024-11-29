@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary ">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -20,15 +20,15 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'index-page' %}">Inicio</a>
+                        <a class="nav-link active boton-header" aria-current="page" href="{% url 'index-page' %}">Inicio<img class="imagen" src="{% static 'iconos/home.png' %}" alt="Inicio"></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}"><strong>Galería</strong></a>
+                        <a class="nav-link active boton-header" aria-current="page" href="{% url 'home' %}">Galeria<strong><img class="imagen" src="{% static 'iconos/gallery.png' %}" alt="Galeria"></strong></a>
                     </li>
 
                     {% if request.user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'favoritos' %}">Favoritos</a>
+                        <a class="nav-link boton-header" href="{% url 'favoritos' %}">Favoritos<img class="imagen estrella" src="{% static 'iconos/star.png' %}" alt="favoritos"></a>
                     </li>
                 </ul>
                     {% endif %}
@@ -37,12 +37,12 @@
                 <ul class="navbar-nav ms-auto d-flex justify-content-end">
                         <li class="nav-item">
                             {% if request.user.is_authenticated %}
-                            <a class="nav-link" href="{% url 'logout' %}">Cerrar sesión</a> {% else %}
-                            <a class="nav-link" href="{% url 'login' %}">Iniciar sesión</a> {% endif %}
+                            <a class="nav-link boton-header" href="{% url 'logout' %}">Cerrar sesión<img class="imagen" src="{% static 'iconos/logout.png' %}" alt="Cerrar sesión"></a> {% else %}
+                            <a class="nav-link boton-header" href="{% url 'login' %}">Iniciar sesión<img class="imagen" src="{% static 'iconos/login.png' %}" alt="Iniciar sesión"></a> {% endif %}
                         </li>
                     <li class="nav-item">
                             {% if not request.user.is_authenticated %}
-                            <a class="nav-link" href="{% url 'register' %}">Registrarse</a> {% endif %}
+                            <a class="nav-link boton-header" href="{% url 'register' %}">Registrarse <img class="imagen" src="{% static 'iconos/singup.png' %}" alt=""></a> {% endif %}
                     </li>
                 </ul>
             </div>
